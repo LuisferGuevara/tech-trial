@@ -4,6 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const { generateSign } = require("../../../utils/jwt/jwt");
 // const { isAuth } = require("../../middleware/auth");
+
 router.get("/", async (req, res) => {
   try {
     const allUsers = await User.find();
@@ -17,7 +18,7 @@ router.get("/", async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const user = req.body;
-    console.log("recibido:", req.body)
+    console.log("recibido:", req.body);
     const newUser = new User(user);
     if (newUser.rol === "user") {
       const created = await newUser.save();
@@ -45,6 +46,28 @@ router.post("/login", async (req, res) => {
     }
   } catch (error) {
     return res.status(500).json("Login error", error);
+  }
+});
+
+router.post("/logout", async (req, res) => {
+  try {
+    const token = null;
+    return res.status(200).json(token);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+router.put("/edit/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = req.body;
+    const userModify = new User(user);
+    userModify._id = id;
+    const userUpdate = await User.findByIdAndUpdate(id, userModify, { returnOriginal: false });
+    return res.status(200).json(userUpdate);
+  } catch (error) {
+    return next(error);
   }
 });
 
