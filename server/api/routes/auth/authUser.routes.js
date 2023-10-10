@@ -71,8 +71,24 @@ router.put("/edit/:id", async (req, res, next) => {
   }
 });
 
+router.get("/getAllUsers", [isAuth], async (req, res, next) => {
+  try {
+    const role = req.user.role;
+    if (role === "admin") {
+      console.log("Funciona");
+      const users = (await User.find({}).select({email:1, name:1, lastname:1}))
+      return res.status(200).json({users});
+    } else {
+      return res.status(401).json("Unauthorized");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+});
+
 router.post("/checksession", [isAuth], async (req, res) => {
-  console.log("token:", req.token)
+  console.log("token:", req.token);
   try {
     return res.status(200).json({ token: req.token, userDb: req.user });
   } catch (error) {

@@ -6,7 +6,7 @@ const isAuth = async (req, res, next) => {
     try {
       const token = req.headers.authorization;
       if (!token) {
-        return res.status(500).json("Unauthorized");
+        return res.status(401).json("Unauthorized");
        };
       const parsedToken = token.replace("Bearer ", "");
       const validToken = verifyJwt(parsedToken);
@@ -17,7 +17,8 @@ const isAuth = async (req, res, next) => {
       req.token = parsedToken;
       next();
     } catch (error) {
-      return next(error);
+      return res.status(401).json("Unauthorized");
+
     }
   };
 
