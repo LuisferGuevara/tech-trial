@@ -3,7 +3,7 @@ const User = require("../../models/user.model");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { generateSign } = require("../../../utils/jwt/jwt");
-// const { isAuth } = require("../../middleware/auth");
+const { isAuth } = require("../../middlewares/auth");
 
 router.get("/", async (req, res) => {
   try {
@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
     const user = req.body;
     console.log("recibido:", req.body);
     const newUser = new User(user);
-    if (newUser.rol === "user") {
+    if (newUser.role === "user") {
       const created = await newUser.save();
       return res.status(201).json(created);
     } else {
@@ -68,6 +68,15 @@ router.put("/edit/:id", async (req, res, next) => {
     return res.status(200).json(userUpdate);
   } catch (error) {
     return next(error);
+  }
+});
+
+router.post("/checksession", [isAuth], async (req, res) => {
+  console.log("token:", req.token)
+  try {
+    return res.status(200).json({ token: req.token, userDb: req.user });
+  } catch (error) {
+    return res.status(500).json(error);
   }
 });
 

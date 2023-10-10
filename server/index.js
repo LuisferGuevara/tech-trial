@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const indexRoutes = require("./api/routes/index/index.routes");
-const usersRoutes = require("./api/routes/auth/authUser.routes")
-const connectDb = require("./utils/database/db")
+const usersRoutes = require("./api/routes/auth/authUser.routes");
+const connectDb = require("./utils/database/db");
 connectDb();
 
 const PORT = 8080;
@@ -15,7 +15,6 @@ server.use(
     credentials: true,
   })
 );
-
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use((error, req, res, next) => {
@@ -29,9 +28,6 @@ server.use("*", (req, res, next) => {
   error.status = 404;
   next(error);
 });
-
-
-
 
 server.listen(PORT, () => {
   console.log(`Server running in http://localhost:${PORT}`);
