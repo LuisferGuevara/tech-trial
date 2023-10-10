@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const { token } = useSelector((state) => state.auth);
-
+  const { token, user } = useSelector((state) => state.auth);
 
   return (
     <nav>
       <ul>
-        {token && (
+        {token && user.role === "admin" && (
           <li>
             <NavLink to="/usersList">Lista de Usuarios </NavLink>
           </li>

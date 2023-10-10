@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   user: null,
-  users: null,
+  users: [],
   token: null,
   error: false,
   isLoading: false,
@@ -23,13 +23,19 @@ const authReducer = (state = INITIAL_STATE, action) => {
     logoutError: { ...INITIAL_STATE, error: action.payload },
 
     putUser: { ...state, user: action.payload, error: false },
-    putError: { ...state, error: action.payload },
+    putUserError: { ...state, error: action.payload },
+    deleteUser: {
+      ...state,
+      users: state.users.filter((user) => user._id !== action.payload), // Filtra el usuario eliminado del estado
+    },
+    deleteUserError: { ...state, error: action.payload },
 
-    getAllUsers: {  ...state,
-      users: action.payload?.userDb,
-      token: action.payload?.token,
-      error: false,},
-    getAllUsersErros: { ...state, error: action.payload },
+    getAllUsers: {
+      ...state,
+      users: action.payload,
+      error: false,
+    },
+    getAllUsersError: { ...state, error: action.payload },
 
     userChecksession: {
       ...state,

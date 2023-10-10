@@ -13,7 +13,6 @@ export const postUser = async (data, navigate, dispatch) => {
 export const loginUser = async (data, navigate, dispatch) => {
   try {
     const result = await API.post("/users/login", data);
-    console.log("result:", result);
     dispatch({ type: "loginUser", payload: result.data });
     localStorage.setItem("token", result.data.token);
     navigate("/userProfile");
@@ -42,13 +41,23 @@ export const putUser = async (data, dispatch, id, setEdit) => {
     dispatch({ type: "putUser", payload: error.message });
   }
 };
-export const getAllUsers = async (data, dispatch) => {
+
+export const deleteUser = async (id, dispatch) => {
   try {
-    const result = await API.get(`users/getAllUsers`, data);
-    console.log(result.data)
+    await API.delete(`users/delete/${id}`);
+    dispatch({ type: "deleteUser", payload: id });
+  } catch (error) {
+    dispatch({ type: "deleteUserError", payload: error.message });
+  }
+};
+
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    const result = await API.get(`users/getAllUsers`);
+    console.log("usuario del db:", result.data);
     dispatch({ type: "getAllUsers", payload: result.data });
   } catch (error) {
-    dispatch({ type: "getAllUsers", payload: error.message });
+    dispatch({ type: "getAllUsersError", payload: error.message });
   }
 };
 

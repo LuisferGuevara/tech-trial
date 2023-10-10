@@ -22,8 +22,9 @@ const Login = () => {
 
   useEffect(() =>{
 if(user){
-  navigate('/usersList')
+  navigate('/UserProfile')
 }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const login = (formdata) => {
