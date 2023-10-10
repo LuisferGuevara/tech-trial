@@ -10,7 +10,6 @@ router.get("/", async (req, res) => {
     const allUsers = await User.find();
     return res.status(200).json(allUsers);
   } catch (error) {
-    console.log(error);
     return res.status(500).json(error.message);
   }
 });
@@ -18,7 +17,6 @@ router.get("/", async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const user = req.body;
-    console.log("recibido:", req.body);
     const newUser = new User(user);
     if (newUser.role === "user") {
       const created = await newUser.save();
@@ -75,9 +73,8 @@ router.get("/getAllUsers", [isAuth], async (req, res, next) => {
   try {
     const role = req.user.role;
     if (role === "admin") {
-      console.log("Funciona");
-      const users = (await User.find({}).select({email:1, name:1, lastname:1}))
-      return res.status(200).json({users});
+      const users = await User.find({}).select({ email: 1, name: 1, lastName: 1 });
+      return res.status(200).json(users);
     } else {
       return res.status(401).json("Unauthorized");
     }
@@ -88,11 +85,24 @@ router.get("/getAllUsers", [isAuth], async (req, res, next) => {
 });
 
 router.post("/checksession", [isAuth], async (req, res) => {
-  console.log("token:", req.token);
   try {
     return res.status(200).json({ token: req.token, userDb: req.user });
   } catch (error) {
     return res.status(500).json(error);
+  }
+});
+
+router.delete("/delete/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (deletedUser) {
+      return res.status(200).json({ message: "User deleted" });
+    } else {
+      return res.status(404).json({ message: "Usuar not found" });
+    }
+  } catch (error) {
+    return next(error);
   }
 });
 
