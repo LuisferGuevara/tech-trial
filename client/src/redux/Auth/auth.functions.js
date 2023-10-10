@@ -14,10 +14,10 @@ export const postUser = async (data, navigate, dispatch) => {
 
     try {
       const result = await API.post("/users/login", data);
+      console.log("result:", result)
       dispatch({ type: "loginUser", payload: result.data });
       localStorage.setItem("token", result.data.token);
-      // localStorage.setItem("cart", "[]");
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       dispatch({ type: "loginError", payload:error.response.data });
     }
@@ -46,7 +46,7 @@ export const postUser = async (data, navigate, dispatch) => {
   
   export const checkSession = async (token, navigate, dispatch) => {
     const result = await API.post("users/checksession");
-    dispatch({ type: "userChecksession", payload:{token:token, user:result.data}});
+    dispatch({ type: "userChecksession", payload:result.data });
     localStorage.setItem("token", token);
-    navigate("/comparator");
+
   };

@@ -14,12 +14,14 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const token = localStorage.getItem("token");
-
+  
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token)
     if (token) {
+      
       checkSession(token, navigate, dispatch);
-      localStorage.setItem("cart","[]");
+
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -30,7 +32,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/comparator" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<AuthRoute component={<Profile />} />} />

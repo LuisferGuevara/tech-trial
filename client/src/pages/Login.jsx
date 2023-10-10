@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -7,7 +7,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/Auth/auth.functions";
 
 const Login = () => {
+  const { user } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -17,8 +20,15 @@ const Login = () => {
 
   const { error, isLoading } = useSelector((state) => state.auth);
 
+  useEffect(() =>{
+if(user){
+  navigate('/home')
+}
+  }, [user])
+
   const login = (formdata) => {
     loginUser(formdata, navigate, dispatch);
+
   };
 
   return (

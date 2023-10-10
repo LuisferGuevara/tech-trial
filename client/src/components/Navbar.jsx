@@ -8,14 +8,14 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    dispatch(logoutUser(navigate, dispatch));
+    logoutUser(navigate, dispatch);
   };
 
   return (
     <nav>
       <ul>
         <li>
-          <NavLink to="/comparator">Home</NavLink>
+          <NavLink to="/home">Home</NavLink>
         </li>
         {token && (
           <li>

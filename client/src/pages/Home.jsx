@@ -5,11 +5,14 @@ import { useSelector } from "react-redux";
 // import "../styles/Home.scss";
 
 const Home = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user, isLoading } = useSelector((state) => state.auth);
+    if(!user && isLoading){
+        return <div>Loading...</div>
+    }
   return (
     <div className="home--section">
       <h1>DASHBOARD</h1>
-      <h1>HOLA {user.name} !</h1>
+      <h1>HOLA {user?.name} !</h1>
 
     </div>
   );
