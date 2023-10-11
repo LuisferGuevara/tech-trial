@@ -15,14 +15,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  .users-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
-    overflow-y: auto;
-  }
-  
   * {
     font-family: "Poppins", sans-serif;
     color: #ffffff;
@@ -31,6 +23,16 @@
     border: none;
   }
 
+
+  .users-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    overflow-y: auto;
+  }
+
+  
   button {
     width: 92%;
     background-color: #ffffff;
@@ -49,21 +51,21 @@
       transform: scale(1.05);
     }
   }
-}
-
-.profile--card {
-  padding: 10px 20px;
-  border-radius: 15px;
-  display: flex;
-}
-
-.profile--content {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  justify-content: center;
-
-  span {
-    font-weight: 100;
+  .profile--card {
+    padding: 10px 20px;
+    border-radius: 15px;
+    display: flex;
+  }
+  
+  .profile--content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+  
+    span {
+      font-weight: 100;
+    }
   }
 }
+

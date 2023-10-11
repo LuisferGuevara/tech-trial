@@ -4,7 +4,7 @@ export const postUser = async (data, navigate, dispatch) => {
   try {
     const result = await API.post("/users/register", data);
     dispatch({ type: "registerUser", payload: result.data });
-    navigate("/login");
+    navigate("/userProfile");
   } catch (error) {
     dispatch({ type: "registerError", payload: error.message });
   }

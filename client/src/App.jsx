@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./styles/App.scss";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { checkSession } from "./redux/Auth/auth.functions";
 import { useEffect } from "react";
@@ -24,9 +24,9 @@ function App() {
 
   return (
     <div className="app">
-      <div className="background">
-        <div className="shape"></div>
-        <div className="shape"></div>
+      <div className="bg">
+        <div className="circle"></div>
+        <div className="circle"></div>
       </div>
       <Routes>
         <Route path="/" element={<Login />} />

@@ -12,12 +12,12 @@ const UsersList = () => {
     dispatch(getAllUsers(dispatch));
   }, [dispatch]);
 
-  console.log("mis usuarios:", users);
   return (
     <>
       <div className="main-container">
         <Navbar />
         <div className="users-list">
+        <h3>Usuarios en Base de Datos:</h3>
           {users &&
             users.map((user) => (
               <div key={user._id}>

@@ -29,73 +29,70 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <div className="login--container">
-        {error && <h2 className="error">{error}</h2>}
+    <>
+      {error && <h2 className="error">{error}</h2>}
+      {isLoading && <h2>Iniciando sesión</h2>}
+      
+      <form onSubmit={handleSubmit(login)}>
+        <h3>Login</h3>
+        <label>
+          {" "}
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo Electrónico"
+            className="input"
+            {...register("email", {
+              required: "Debes de introducir un email",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Introduce un email válido",
+              },
+            })}
+          />
+        </label>
+        {errors.email ? (
+          <>
+            {errors.email.type === "required" && <p className="error">{errors.email.message}</p>}
+            {errors.email.type === "pattern" && <p className="error">{errors.email.message}</p>}
+          </>
+        ) : null}
 
-        {isLoading && <h2>Iniciando sesión</h2>}
-
-        <form onSubmit={handleSubmit(login)}>
-          <h3>Login</h3>
-          <label>
-            {" "}
-            Email
-            <input
-              type="email"
-              name="email"
-              placeholder="Correo Electrónico"
-              className="input"
-              {...register("email", {
-                required: "Debes de introducir un email",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "Introduce un email válido",
-                },
-              })}
-            />
-          </label>
-          {errors.email ? (
-            <>
-              {errors.email.type === "required" && <p className="error">{errors.email.message}</p>}
-              {errors.email.type === "pattern" && <p className="error">{errors.email.message}</p>}
-            </>
-          ) : null}
-
-          <label>
-            {" "}
-            Contraseña
-            <input
-              type="password"
-              name="password"
-              placeholder="Contraseña"
-              className="input"
-              {...register("password", {
-                required: "Debes de introducir una contraseña",
-                pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_=+-]).{8,20}$/,
-                  message:
-                    "Mínimo una minúscula, una mayúscula, un número y caracter especial. De 8 a 20 caracteres de largo.",
-                },
-              })}
-            />
-          </label>
-          {errors.password ? (
-            <>
-              {errors.password.type === "required" && (
-                <p className="error">{errors.password.message}</p>
-              )}
-              {errors.password.type === "pattern" && (
-                <p className="error">{errors.password.message}</p>
-              )}
-            </>
-          ) : null}
-          <p className="go-to-register">
-            ¿Eres nuevo? <NavLink to="/register">Crear cuenta</NavLink>
-          </p>
-          <button className="button">INICIAR SESIÓN</button>
-        </form>
-      </div>
-    </div>
+        <label>
+          {" "}
+          Contraseña
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            className="input"
+            {...register("password", {
+              required: "Debes de introducir una contraseña",
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_=+-]).{8,20}$/,
+                message:
+                  "Mínimo una minúscula, una mayúscula, un número y caracter especial. De 8 a 20 caracteres de largo.",
+              },
+            })}
+          />
+        </label>
+        {errors.password ? (
+          <>
+            {errors.password.type === "required" && (
+              <p className="error">{errors.password.message}</p>
+            )}
+            {errors.password.type === "pattern" && (
+              <p className="error">{errors.password.message}</p>
+            )}
+          </>
+        ) : null}
+        <p className="go-to-register">
+          ¿Eres nuevo? <NavLink to="/register">Crear cuenta</NavLink>
+        </p>
+        <button className="button">INICIAR SESIÓN</button>
+      </form>{" "}
+    </>
   );
 };
 

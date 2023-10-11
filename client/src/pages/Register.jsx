@@ -22,8 +22,8 @@ const Register = () => {
   };
 
   return (
-    <div className="register--box">
-      <div className="register--container">
+
+      <>
         {error && <h2 className="error">{error}</h2>}
 
         {isLoading && <h2 className="loading">Iniciando sesión</h2>}
@@ -154,11 +154,11 @@ const Register = () => {
             </>
           ) : null}
           <div>
-            <button className="button">Enviar</button>
+            <button className="button">Registrarse</button>
           </div>
         </form>
-      </div>
-    </div>
+      </>
+
   );
 };
 

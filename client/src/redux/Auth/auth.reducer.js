@@ -7,6 +7,8 @@ const INITIAL_STATE = {
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
+  console.log("Action:", action);
+  console.log("State before:", state);
   const cases = {
     loginUser: {
       ...state,
@@ -44,7 +46,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       token: action.payload?.token,
       error: false,
     },
-  };
+  };  console.log("State after:", state);
 
   return cases[action.type] || state;
 };

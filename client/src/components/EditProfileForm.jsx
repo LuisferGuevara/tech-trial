@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import { putUser } from "../redux/Auth/auth.functions";
 import "../styles/EditProfile.scss";
 
-// eslint-disable-next-line react/prop-types
+
 const EditProfileForm = ({ setEdit,user }) => {
+
   const {
     register,
     handleSubmit,
@@ -23,8 +24,12 @@ const EditProfileForm = ({ setEdit,user }) => {
     setValue("lastName", user?.lastName || ""); 
   }, [user, setValue]);
 
+
   const editUser = async (data) => {
-    putUser(data, dispatch, user._id, setEdit);
+
+    // putUser(data, dispatch, user._id, setEdit);
+    await putUser(data, dispatch, user._id, setEdit);
+
   };
 
   const handleCancelClick = () => {
@@ -94,6 +99,6 @@ const EditProfileForm = ({ setEdit,user }) => {
     </>
   );
 };
-EditProfileForm.propTypes = { user: PropTypes.object };
+EditProfileForm.propTypes = { user: PropTypes.object, setEdit:PropTypes.object };
 export default EditProfileForm;
  
