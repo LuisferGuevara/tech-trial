@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const user = req.body;
+    user.role= "user";
     const newUser = new User(user);
     if (newUser.role === "user") {
       const created = await newUser.save();
