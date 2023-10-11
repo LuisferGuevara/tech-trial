@@ -1,13 +1,12 @@
 import { useState } from "react";
 import EditProfileForm from "../components/EditProfileForm";
 import PropTypes from "prop-types";
-import { useDispatch,  } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteUser } from "../redux/Auth/auth.functions";
 import "../styles/UserCard.scss";
 
 const UserCard = ({ user }) => {
   const [edit, setEdit] = useState(false);
-  // const { token } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -22,7 +21,6 @@ const UserCard = ({ user }) => {
   return (
     <>
       <div className="profile">
-
         <div className="profile--card">
           <div className="profile--content">
             <p>
@@ -38,13 +36,10 @@ const UserCard = ({ user }) => {
           </div>
 
           {edit ? (
-            <EditProfileForm setEdit={setEdit} />
+            <EditProfileForm setEdit={setEdit} user={user} />
           ) : (
             <div className="profile--actions">
               <button onClick={handleEditClick}>Editar Perfil</button>
-              {/* {token && user.role === "admin" && (
-                <button onClick={handleDeleteClick}>Eliminar Usuario</button>
-              )} */}
               <button onClick={handleDeleteClick}>Eliminar Usuario</button>
             </div>
           )}

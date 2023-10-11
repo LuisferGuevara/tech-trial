@@ -5,21 +5,29 @@ nav {
     padding: 0;
     margin: 0;
     justify-content: space-between;
-  }
 
-  li {
-    margin: 0 10px;
-    font-size: 16px;
-    font-weight: 700;
+    li {
+      margin: 0 10px;
+      font-size: 16px;
+      font-weight: 700;
 
-    .fa-icon {
-      border: none;
-      font-size: xx-large;
-      color: #ffffff;
-      transition: color 0.3s;
+      .fa-icon {
+        border: none;
+        font-size: 20px;
+        color: #ffffff;
+        transition: color 0.3s;
+        position: relative;
+        padding-bottom: 6px;
 
-      &:hover {
-        color: #080710;
+        &.active {
+          text-decoration: underline;
+          border-bottom: 1px solid #fff; /* Añade un borde inferior */
+          box-shadow: 0px 4px 9px rgba(233, 223, 223, 0.1); /* Añade una sombra */
+        }
+
+        &:hover {
+          color: #080710;
+        }
       }
     }
   }

@@ -1,12 +1,13 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect } from "react";
+
+import  { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import { putUser } from "../redux/Auth/auth.functions";
 import "../styles/EditProfile.scss";
 
 // eslint-disable-next-line react/prop-types
-const EditProfileForm = ({ setEdit }) => {
+const EditProfileForm = ({ setEdit,user }) => {
   const {
     register,
     handleSubmit,
@@ -16,23 +17,22 @@ const EditProfileForm = ({ setEdit }) => {
 
   const dispatch = useDispatch();
 
-  const { error, isLoading, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    setValue("name", user?.name);
-    setValue("lastName", user?.lastName);
-    setValue("region", user?.region);
+    setValue("name", user?.name || ""); 
+    setValue("lastName", user?.lastName || ""); 
   }, [user, setValue]);
 
   const editUser = async (data) => {
     putUser(data, dispatch, user._id, setEdit);
   };
 
+  const handleCancelClick = () => {
+    setEdit(false);
+  };
+
   return (
     <>
-      {error && <h2 className="error">{error}</h2>}
-
-      {isLoading && <h2 className="loading">Iniciando sesión</h2>}
 
       <form onSubmit={handleSubmit(editUser)} className="edit-profile-container">
         <h3>Actualizar Datos</h3>
@@ -86,10 +86,14 @@ const EditProfileForm = ({ setEdit }) => {
 
         <div>
           <button className="button">Actualizar</button>
+          <button type="button" onClick={handleCancelClick} className="button cancel">
+            Cancelar
+          </button>
         </div>
       </form>
     </>
   );
 };
-
+EditProfileForm.propTypes = { user: PropTypes.object };
 export default EditProfileForm;
+ 
