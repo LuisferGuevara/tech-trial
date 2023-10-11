@@ -28,7 +28,6 @@ function App() {
         <div className="shape"></div>
         <div className="shape"></div>
       </div>
-    
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />

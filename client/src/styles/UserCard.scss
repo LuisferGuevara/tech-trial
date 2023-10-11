@@ -1,0 +1,20 @@
+.profile--card {
+  background-color: #ffffff94;
+  flex-grow: 1;
+  height: 180px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.profile--content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: center;
+
+  span {
+    font-weight: 100;
+  }
+}

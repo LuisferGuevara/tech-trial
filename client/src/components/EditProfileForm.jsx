@@ -35,7 +35,7 @@ const EditProfileForm = ({ setEdit }) => {
       {isLoading && <h2 className="loading">Iniciando sesión</h2>}
 
       <form onSubmit={handleSubmit(editUser)} className="edit-profile-container">
-        <h3>Actualiza tus datos</h3>
+        <h3>Actualizar Datos</h3>
         <label>
           Nombre:
           <input
