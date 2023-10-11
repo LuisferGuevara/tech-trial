@@ -1,0 +1,66 @@
+nav {
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+  }
+
+  li {
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: 700;
+
+    .fa-icon {
+      border: none;
+      font-size: xx-large;
+      color: #ffffff;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #080710;
+      }
+    }
+  }
+}
+
+// Resto de tu código SCSS
+
+.tooltip-container {
+  position: relative;
+
+  .tooltip {
+    visibility: hidden;
+    width: 80px;
+    background-color: #080710;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    font-size: 12px;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -45px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #080710 transparent transparent transparent;
+  }
+
+  &:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+}

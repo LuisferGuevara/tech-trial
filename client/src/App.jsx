@@ -4,7 +4,6 @@ import { checkSession } from "./redux/Auth/auth.functions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import AuthRoute from "./components/AuthRoute";
-import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Register from "./pages/REgister";
@@ -25,14 +24,18 @@ function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      <div className="background">
+        <div className="shape"></div>
+        <div className="shape"></div>
+      </div>
+    
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/userProfile" element={<AuthRoute component={<UserProfile/>} />} />
-        <Route path="/usersList" element={<AuthRoute component={<UsersList/>} />} />
+        <Route path="/userProfile" element={<AuthRoute component={<UserProfile />} />} />
+        <Route path="/usersList" element={<AuthRoute component={<UsersList />} />} />
       </Routes>
     </div>
   );

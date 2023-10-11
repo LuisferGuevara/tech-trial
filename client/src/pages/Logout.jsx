@@ -1,39 +1,38 @@
-
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/Auth/auth.functions";
-// import { NavLink } from "react-router-dom";
-// import "../styles/Home.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import "../styles/Logout.scss";
 
 const Logout = () => {
-    const { token } = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-    const navigate = useNavigate()
-  
-    const handleLogout = () => {
-      logoutUser(navigate, dispatch);
-    };
-  
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser(navigate, dispatch);
+  };
+
   const { user, isLoading } = useSelector((state) => state.auth);
   if (!user && isLoading) {
     return <div>Loading...</div>;
   }
   return (
-    <div className="home--section">
-      <h1>CERRAR SESSION</h1>
+    <div className="dashboard">
+      <div className="tool-container">
+        <NavLink to="/userProfile">
+          <FontAwesomeIcon icon={faUser} />
+        </NavLink>
+        <div className="tooltip"> Volver a Mi Perfil</div>
+      </div>
+      <h1>CERRAR SESIÓN</h1>
+      <h3>Estás a punto de abandonar tu sessión. Pulsa el botón solo si estás seguro.</h3>
       {token && (
-          <li className="logout" onClick={handleLogout}>
-            <p>Cerrar sesión</p>
-            <div className="icon--box">
-              <img
-                className="logot--logo"
-                // src="https://res.cloudinary.com/dfxn0bmo9/image/upload/v1670171708/icons/logoutIcon-01_ywpjwq.svg"
-                alt="Cerrar sesión logo"
-              />
-            </div>
-          </li>
-        )}
-     
+        <button className="logout-btn" onClick={handleLogout}>
+          Cerrar sesión
+        </button>
+      )}
     </div>
   );
 };

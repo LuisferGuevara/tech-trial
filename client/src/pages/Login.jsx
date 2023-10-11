@@ -1,14 +1,13 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect } from "react";
+import "../styles/Login.scss";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-// import "../styles/Login.scss";
 import { loginUser } from "../redux/Auth/auth.functions";
 
 const Login = () => {
+  const { error, isLoading } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
 
   const {
@@ -18,18 +17,15 @@ const Login = () => {
   } = useForm();
   const navigate = useNavigate();
 
-  const { error, isLoading } = useSelector((state) => state.auth);
-
-  useEffect(() =>{
-if(user){
-  navigate('/UserProfile')
-}
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+  useEffect(() => {
+    if (user) {
+      navigate("/UserProfile");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const login = (formdata) => {
     loginUser(formdata, navigate, dispatch);
-
   };
 
   return (
@@ -37,18 +33,20 @@ if(user){
       <div className="login--container">
         {error && <h2 className="error">{error}</h2>}
 
-        {isLoading && <h2 className="loading">Iniciando sesión</h2>}
+        {isLoading && <h2>Iniciando sesión</h2>}
 
         <form onSubmit={handleSubmit(login)}>
-          <h1>Acceso a Mi cuenta</h1>
+          <h3>Login</h3>
           <label>
+            {" "}
+            Email
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="Correo Electrónico"
               className="input"
               {...register("email", {
-                required: "Introduce un email",
+                required: "Debes de introducir un email",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: "Introduce un email válido",
@@ -64,18 +62,20 @@ if(user){
           ) : null}
 
           <label>
+            {" "}
+            Contraseña
             <input
               type="password"
               name="password"
               placeholder="Contraseña"
               className="input"
               {...register("password", {
-                required: "Introduce una contraseña",
-                // pattern: {
-                //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$/,
-                //   message:
-                //     "Mínimo una minúscula, una mayúscula, un número y caracter especial. De 8 a 12 caracteres de largo.",
-                // },
+                required: "Debes de introducir una contraseña",
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_=+-]).{8,20}$/,
+                  message:
+                    "Mínimo una minúscula, una mayúscula, un número y caracter especial. De 8 a 20 caracteres de largo.",
+                },
               })}
             />
           </label>
@@ -89,28 +89,11 @@ if(user){
               )}
             </>
           ) : null}
-          <p className="form--register">
+          <p className="go-to-register">
             ¿Eres nuevo? <NavLink to="/register">Crear cuenta</NavLink>
           </p>
-          <button className="button">Enviar</button>
+          <button className="button">INICIAR SESIÓN</button>
         </form>
-
-        {/* <div className="login--links">
-          <a href="/" target="_blank">
-            <img
-              src="https://res.cloudinary.com/dfxn0bmo9/image/upload/v1670173557/icons/socialMedia-03_ohyzkf.svg"
-              alt="logo de Google"
-            />
-            Accede con GOOGLE
-          </a>
-          <a href="/" target="_blank">
-            <img
-              src="https://res.cloudinary.com/dfxn0bmo9/image/upload/v1670173557/icons/socialMedia-04_jekc42.svg"
-              alt="logo de Google"
-            />
-            Accede con FACEBOOK
-          </a>
-        </div> */}
       </div>
     </div>
   );

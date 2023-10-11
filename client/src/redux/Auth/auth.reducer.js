@@ -24,9 +24,10 @@ const authReducer = (state = INITIAL_STATE, action) => {
 
     putUser: { ...state, user: action.payload, error: false },
     putUserError: { ...state, error: action.payload },
+    
     deleteUser: {
       ...state,
-      users: state.users.filter((user) => user._id !== action.payload), // Filtra el usuario eliminado del estado
+      users: state.users.filter((user) => user._id !== action.payload),
     },
     deleteUserError: { ...state, error: action.payload },
 

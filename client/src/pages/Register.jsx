@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { postUser } from "../redux/Auth/auth.functions";
-// import "../styles/Register.scss";
+import "../styles/Register.scss";
 
 const Register = () => {
   const {
@@ -17,12 +17,11 @@ const Register = () => {
   const { error, isLoading } = useSelector((state) => state.auth);
 
   const registerUser = async (data) => {
-    delete data.tou;
+    delete data.terms;
     postUser(data, navigate, dispatch);
   };
 
   return (
-
     <div className="register--box">
       <div className="register--container">
         {error && <h2 className="error">{error}</h2>}
@@ -30,8 +29,12 @@ const Register = () => {
         {isLoading && <h2 className="loading">Iniciando sesión</h2>}
 
         <form onSubmit={handleSubmit(registerUser)}>
-          <h1>Regístrate</h1>
-          <label>
+          <NavLink className="link-back" to="/login">
+            <i className="fa-solid fa-arrow-left"></i>
+          </NavLink>
+          <h3>Register</h3>
+          <label className="label">
+            Nombre
             <input
               type="text"
               placeholder="Nombre"
@@ -51,7 +54,8 @@ const Register = () => {
               {errors.name.type === "pattern" && <p className="error">{errors.name.message}</p>}
             </>
           ) : null}
-          <label>
+          <label className="label">
+            Apellidos
             <input
               type="text"
               placeholder="Apellidos"
@@ -75,10 +79,11 @@ const Register = () => {
               )}
             </>
           ) : null}
-          <label>
+          <label className="label">
+            Email
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Correo Electrónico"
               className="input"
               {...register("email", {
                 required: "Introduce un email",
@@ -95,18 +100,21 @@ const Register = () => {
               {errors.email.type === "pattern" && <p className="error">{errors.email.message}</p>}
             </>
           ) : null}
-          <label>
+          <label className="label">
+            {" "}
+            Contraseña
             <input
               type="password"
+              name="password"
               placeholder="Contraseña"
               className="input"
               {...register("password", {
-                // required: "Introduce una contraseña",
-                // pattern: {
-                //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$/,
-                //   message:
-                //     "Mínimo una minúscula, una mayúscula, un número y caracter especial. De 8 a 12 caracteres de largo.",
-                // },
+                required: "Debes de introducir una contraseña",
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_=+-]).{8,20}$/,
+                  message:
+                    "Mínimo una minúscula, una mayúscula, un número y caracter especial. De 8 a 20 caracteres de largo.",
+                },
               })}
             />
           </label>
@@ -121,81 +129,34 @@ const Register = () => {
             </>
           ) : null}
 
-          {/* <label>
-            <select
-              className="select"
-              {...register("region", {
-                validate: (value) =>
-                  value !== "" || "Tienes que elegir una Comunidad Autónoma para continuar",
-              })}
-            >
-              <option value="">Elige tu Comunidad Autónoma</option>
-              <option value="Andalucía">Andalucía</option>
-              <option value="Aragón">Aragón</option>
-              <option value="Principado de Asturias">Principado de Asturias</option>
-              <option value="Islas Baleares">Islas Baleares</option>
-              <option value="Islas Canarias">Islas Canarias</option>
-              <option value="Cantabria">Cantabria</option>
-              <option value="Castilla y León">Castilla y León</option>
-              <option value="Castilla-La Mancha">Castilla-La Mancha</option>
-              <option value="Cataluña">Cataluña</option>
-              <option value="Comunidad Valenciana">Comunidad Valenciana</option>
-              <option value="Extremadura">Extremadura</option>
-              <option value="Galicia">Galicia</option>
-              <option value="Comunidad de Madrid">Comunidad de Madrid</option>
-              <option value="Región de Murcia">Región de Murcia</option>
-              <option value="Comunidad Foral de Navarra">Comunidad Foral de Navarra</option>
-              <option value="País Vasco">País Vasco</option>
-              <option value="La Rioja">La Rioja</option>
-              <option value="Ceuta">Ceuta</option>
-              <option value="Melilla">Melilla</option>
-            </select>
-          </label> */}
-
-          {errors.region ? (
-            <>
-              {errors.region.type === "validate" && (
-                <p className="error">{errors.region.message}</p>
-              )}
-            </>
-          ) : null}
-          <label className="tou">
+          <label className="terms">
             <input
               type="checkbox"
-              {...register("tou", {
+              className="input-checkbox"
+              {...register("terms", {
                 required: "Acepta los Terminos y Condiciones de Uso para continuar",
               })}
             />
             <span>
-              He leído y acepto los{" "}
-              <a className="tou--link" href="https://policies.google.com/terms?hl=es" target="_blank" rel="noreferrer">
+              <a
+                className="terms--link"
+                href="https://policies.google.com/terms?hl=es"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Términos y Condiciones de Uso
               </a>
             </span>
           </label>
-          {errors.tou ? (
-            <>{errors.tou.type === "required" && <p className="error">{errors.tou.message}</p>}</>
+          {errors.terms ? (
+            <>
+              {errors.terms.type === "required" && <p className="error">{errors.terms.message}</p>}
+            </>
           ) : null}
-          <div className="submit--box">
+          <div>
             <button className="button">Enviar</button>
           </div>
         </form>
-        <div className="login--links">
-          <a href="/" target="_blank">
-            <img
-              src="https://res.cloudinary.com/dfxn0bmo9/image/upload/v1670173557/icons/socialMedia-03_ohyzkf.svg"
-              alt="logo de Google"
-            />
-            Regístrate con GOOGLE
-          </a>
-          <a href="/" target="_blank">
-            <img
-              src="https://res.cloudinary.com/dfxn0bmo9/image/upload/v1670173557/icons/socialMedia-04_jekc42.svg"
-              alt="logo de Google"
-            />
-            Regístrate con FACEBOOK
-          </a>
-        </div>
       </div>
     </div>
   );
