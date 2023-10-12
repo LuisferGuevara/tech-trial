@@ -17,6 +17,9 @@ const UserCard = ({ user }) => {
   const handleDeleteClick = () => {
     deleteUser(user._id, dispatch);
   };
+  if (!user) {
+    return null;
+  }
 
   return (
     <>

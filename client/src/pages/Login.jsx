@@ -32,7 +32,6 @@ const Login = () => {
     <>
       {error && <h2 className="error">{error}</h2>}
       {isLoading && <h2>Iniciando sesión</h2>}
-      
       <form onSubmit={handleSubmit(login)}>
         <h3>Login</h3>
         <label>

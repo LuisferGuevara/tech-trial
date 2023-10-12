@@ -14,8 +14,11 @@ const Navbar = () => {
         {token && user.role === "admin" && (
           <li>
             <div className="tooltip-container">
-              <NavLink to="/usersList" >
-                <FontAwesomeIcon icon={faTableList} className={location.pathname === "/usersList" ? "fa-icon active" : "fa-icon"}/>
+              <NavLink to="/usersList">
+                <FontAwesomeIcon
+                  icon={faTableList}
+                  className={location.pathname === "/usersList" ? "fa-icon active" : "fa-icon"}
+                />
               </NavLink>
               <div className="tooltip"> Lista de Usuarios</div>
             </div>
@@ -24,7 +27,10 @@ const Navbar = () => {
         {token && (
           <li>
             <div className="tooltip-container">
-              <NavLink to="/userProfile" className={location.pathname === "/userProfile" ? "fa-icon active" : "fa-icon"}>
+              <NavLink
+                to="/userProfile"
+                className={location.pathname === "/userProfile" ? "fa-icon active" : "fa-icon"}
+              >
                 <FontAwesomeIcon icon={faUser} className="fa-icon" />
               </NavLink>
               <div className="tooltip"> Mi Perfil</div>

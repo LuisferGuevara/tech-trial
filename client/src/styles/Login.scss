@@ -1,5 +1,6 @@
 form {
   min-height: 520px;
+  max-height: 520px;
   width: 300px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
@@ -11,6 +12,7 @@ form {
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
+  overflow: scroll;
 
   * {
     font-family: "Poppins", sans-serif;
@@ -51,6 +53,7 @@ form {
     display: block;
     height: 50px;
     width: 100%;
+    box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.07);
     border-radius: 3px;
     padding: 0 10px;

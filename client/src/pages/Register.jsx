@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { postUser } from "../redux/Auth/auth.functions";
 import "../styles/Register.scss";
+import SuccessModal from "../components/SuccessModal";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   const {
@@ -15,24 +19,30 @@ const Register = () => {
   const navigate = useNavigate();
 
   const { error, isLoading } = useSelector((state) => state.auth);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const registerUser = async (data) => {
     delete data.terms;
     postUser(data, navigate, dispatch);
+    setModalIsOpen(true);
   };
 
   return (
+    <>
+      {error && <h2 className="error">{error}</h2>}
 
-      <>
-        {error && <h2 className="error">{error}</h2>}
+      {isLoading && <h2 className="loading">Iniciando sesión</h2>}
 
-        {isLoading && <h2 className="loading">Iniciando sesión</h2>}
-
-        <form onSubmit={handleSubmit(registerUser)}>
-          <NavLink className="link-back" to="/login">
-            <i className="fa-solid fa-arrow-left"></i>
+      <form onSubmit={handleSubmit(registerUser)}>
+        <div className="tool-container back">
+          <NavLink to="/login">
+            <FontAwesomeIcon icon={faArrowLeft} />
           </NavLink>
-          <h3>Register</h3>
+          <div className="tooltip"> Login</div>
+        </div>
+
+        <h3>Register</h3>
+        <div className="">
           <label className="label">
             Nombre
             <input
@@ -156,9 +166,16 @@ const Register = () => {
           <div>
             <button className="button">Registrarse</button>
           </div>
-        </form>
-      </>
-
+        </div>
+      </form>
+      <SuccessModal
+        isOpen={modalIsOpen}
+        closeModal={() => {
+          setModalIsOpen(false);
+          navigate("/login");
+        }}
+      />
+    </>
   );
 };
 

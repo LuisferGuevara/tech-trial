@@ -1,14 +1,12 @@
-
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { putUser } from "../redux/Auth/auth.functions";
+import { putUser, putUsers } from "../redux/Auth/auth.functions";
 import "../styles/EditProfile.scss";
 
-
-const EditProfileForm = ({ setEdit,user }) => {
-
+const EditProfileForm = ({ setEdit, user }) => {
+  const { user: loggedUser } = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -18,18 +16,17 @@ const EditProfileForm = ({ setEdit,user }) => {
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    setValue("name", user?.name || ""); 
-    setValue("lastName", user?.lastName || ""); 
+    setValue("name", user?.name || "");
+    setValue("lastName", user?.lastName || "");
   }, [user, setValue]);
 
-
   const editUser = async (data) => {
-
-    // putUser(data, dispatch, user._id, setEdit);
-    await putUser(data, dispatch, user._id, setEdit);
-
+    if (user._id === loggedUser._id) {
+      await putUser(data, dispatch, user._id, setEdit);
+    } else {
+      await putUsers(data, dispatch, user._id, setEdit);
+    }
   };
 
   const handleCancelClick = () => {
@@ -38,7 +35,6 @@ const EditProfileForm = ({ setEdit,user }) => {
 
   return (
     <>
-
       <form onSubmit={handleSubmit(editUser)} className="edit-profile-container">
         <h3>Actualizar Datos</h3>
         <label>
@@ -99,6 +95,10 @@ const EditProfileForm = ({ setEdit,user }) => {
     </>
   );
 };
-EditProfileForm.propTypes = { user: PropTypes.object, setEdit:PropTypes.object };
+
+EditProfileForm.propTypes = {
+  user: PropTypes.object,
+  setEdit: PropTypes.func,
+};
+
 export default EditProfileForm;
- 

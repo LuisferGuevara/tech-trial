@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     const user = req.body;
-    user.role= "user";
+    user.role = "user";
     const newUser = new User(user);
     if (newUser.role === "user") {
       const created = await newUser.save();
@@ -63,7 +63,9 @@ router.put("/edit/:id", async (req, res, next) => {
     const user = req.body;
     const userModify = new User(user);
     userModify._id = id;
-    const userUpdate = await User.findByIdAndUpdate(id, userModify, { returnOriginal: false });
+    const userUpdate = await User.findByIdAndUpdate(id, userModify, {
+      returnOriginal: false,
+    }).select("-password");
     return res.status(200).json(userUpdate);
   } catch (error) {
     return next(error);

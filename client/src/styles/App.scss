@@ -9,9 +9,20 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  color: whitesmoke;
   background-color: #080710;
+  display: flex;
+
   a {
     text-decoration: none;
+  }
+  footer {
+    position: absolute;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    font-family: "Poppins", sans-serif;
+    font-size: 100;
+    font-size: 15px;
   }
 }
 
